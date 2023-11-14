@@ -16,6 +16,7 @@ const Login = () => {
     const location =useLocation();
 
     const from = location.state?.from?.pathname || "/";
+    console.log('user location login', location.state);
 
     useEffect(() =>{
         loadCaptchaEnginge(6)
@@ -88,7 +89,7 @@ const Login = () => {
                   name="email"
                   placeholder="email"
                   className="input input-bordered"
-                //   required
+              
                 />
               </div>
               <div className="form-control">
@@ -114,7 +115,7 @@ const Login = () => {
                 </label>
                 <input  onBlur={handleValidateCaptcha}
                   type="text"
-                  // ref={captchaRef}
+                  
                   name="captcha"
                   placeholder="Type the captcha above"
                   className="input input-bordered"

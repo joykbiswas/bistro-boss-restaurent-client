@@ -1,31 +1,57 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
-
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import useCart from "../../../hooks/useCart";
 const Navbar = () => {
-  const {user,logOut} = useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext);
+  const [cart] =useCart()
 
-  const handleLogOut =() =>{
+  const handleLogOut = () => {
     logOut()
-    .then(() =>{})
-    .catch(error =>console.error(error))
-  }
+      .then(() => {})
+      .catch((error) => console.error(error));
+  };
 
   const navOptions = (
     <>
-      <li><Link to='/'>Home</Link> </li>
-      <li><Link to='/menu'>Our Menu</Link> </li>
-      <li><Link to='/order/salad'>Order Food</Link> </li>
-      <li><Link to='/secret'>Secret</Link> </li>
-      
-      {
-        user ? <>
-        <li><button onClick={handleLogOut} className="btn btn-ghost">Logout</button></li>
-        <span>{user?.displayName}</span>
-        </> : <>
-         <li><Link to='/login'>Login</Link> </li>
+      <li>
+        <Link to="/">Home</Link>{" "}
+      </li>
+      <li>
+        <Link to="/menu">Our Menu</Link>{" "}
+      </li>
+      <li>
+        <Link to="/order/salad">Order Food</Link>{" "}
+      </li>
+      <li>
+        <Link to="/secret">Secret</Link>{" "}
+      </li>
+      <li>
+        <Link to="/dashboard/cart">
+          <button className="btn text-white bg-slate-600 hover:bg-slate-500">
+          <AiOutlineShoppingCart className="mr-2"></AiOutlineShoppingCart>
+            <div className="badge badge-secondary">+{cart.length}</div>
+          </button>
+        </Link>
+      </li>
+
+      {user ? (
+        <>
+          <li>
+            <button onClick={handleLogOut} className="btn btn-ghost">
+              Logout
+            </button>
+          </li>
+          <span>{user?.displayName}</span>
         </>
-      }
+      ) : (
+        <>
+          <li>
+            <Link to="/login">Login</Link>{" "}
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -51,7 +77,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52  "
             >
               {navOptions}
             </ul>
