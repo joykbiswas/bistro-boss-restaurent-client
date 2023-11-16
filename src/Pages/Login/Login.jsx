@@ -4,6 +4,7 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import { AuthContext } from '../../Providers/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import SocialLogin from '../../Components/SocialLogin/SocialLogin';
 
 
 
@@ -14,6 +15,7 @@ const Login = () => {
     const {signIn} = useContext(AuthContext);
     const navigate = useNavigate();
     const location =useLocation();
+    const [error,setError] =useState('')
 
     const from = location.state?.from?.pathname || "/";
     console.log('user location login', location.state);
@@ -50,6 +52,11 @@ const Login = () => {
             }
           });
           navigate(from, {replace: true});
+        })
+        .catch(error=>{
+          // setError('Wrong password')
+          setError(error.message)
+          console.error(error)
         })
     }
 
@@ -123,13 +130,16 @@ const Login = () => {
                 />
                 {/* <button  className='btn btn-outline btn-xs mt-2'>Validate</button> */}
               </div>
+              <p className="text-red-500">{error}</p>
               <div className="form-control mt-6">
                 <input disabled={disabled} className='btn btn-primary' type="submit" value="Login" />
               </div>
             </form>
-            <p className='pb-4 pl-4'><>New Here? <Link className='text-red-400' to='/signup'>Create an account</Link></></p>
+            <SocialLogin></SocialLogin>
+            <p className='pb-4 pl-3 md:pl-8'><>New Here? <Link className='text-red-400' to='/signup'>Create an account</Link></></p>
           </div>
         </div>
+        
       </div>
     </div>
   );
