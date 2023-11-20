@@ -66,9 +66,9 @@ const Dashboard = () => {
                           Add Review  </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/bookings">
+                        <NavLink to="/dashboard/paymentHistory">
                         <AiOutlineUnorderedList className="mr-2"></AiOutlineUnorderedList>
-                          My Booking  </NavLink>
+                          Payment History  </NavLink>
                     </li>
                           </>
                     }

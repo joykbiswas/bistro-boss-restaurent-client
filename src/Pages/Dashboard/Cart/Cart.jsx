@@ -3,11 +3,14 @@ import { FaTrashAlt } from 'react-icons/fa';
 import useCart from "../../../hooks/useCart";
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const [cart,refetch] = useCart();
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+  const Price = cart.reduce((total, item) => total + item.price, 0);
+  const totalPrice = Price.toFixed(2)
   const axiosSecure = useAxiosSecure();
+  
   const handleDelete =id =>{
     Swal.fire({
         title: "Are you sure?",
@@ -39,7 +42,12 @@ const Cart = () => {
       <div className="flex justify-around">
         <h2 className="text-3xl">Item: {cart.length}</h2>
         <h2 className="text-3xl">Total Price: {totalPrice}</h2>
-        <button className="btn btn-primary">pay</button>
+        {
+          cart.length ? <Link to="/dashboard/payment">
+          <button  className="btn btn-primary">pay</button>
+          </Link> :
+          <button disabled  className="btn btn-primary">pay</button>
+        }
         </div> 
 
         <div className="overflow-x-auto">
