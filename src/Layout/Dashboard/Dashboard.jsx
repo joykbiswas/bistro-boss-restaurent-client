@@ -13,6 +13,7 @@ const Dashboard = () => {
         <div className="flex ">
             {/* dashboard side bar */}
             <div className="w-64 min-h-screen bg-orange-300 ">
+              <div><p className="mt-2 text-3xl text-center font-bold text-red-600">Bistro Boss</p></div>
                 <ul className="menu">
                     {
                         isAdmin ? <>

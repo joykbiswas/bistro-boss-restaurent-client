@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import useCart from "../../../hooks/useCart";
+import useAdmin from "../../../hooks/useAdmin";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   const [cart] =useCart()
 
   const handleLogOut = () => {
@@ -19,14 +21,23 @@ const Navbar = () => {
         <Link to="/">Home</Link>{" "}
       </li>
       <li>
-        <Link to="/menu">Our Menu</Link>{" "}
+        <Link to="/menu">Our Menu</Link>
       </li>
       <li>
-        <Link to="/order/salad">Order Food</Link>{" "}
+        <Link to="/order/salad">Order Food</Link>
       </li>
-      <li>
-        <Link to="/secret">Secret</Link>{" "}
-      </li>
+      {
+        //  user ? 'true' : 'false'
+        // user ? condition ? 'double true' : 'oneTrue' : 'false'
+      }
+      
+      {
+        user && isAdmin && <li><Link to="/dashboard/adminHome">Dashboard</Link></li>
+      }
+      {
+        user && !isAdmin && <li><Link to="/dashboard/userHome">Dashboard</Link></li>
+      }
+      
       <li>
         <Link to="/dashboard/cart">
           <button className="btn text-white bg-slate-600 hover:bg-slate-500">
@@ -96,3 +107,10 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+{/* {
+        user ? isAdmin ? <li><link to="/dashboard/adminHome">Dashboard</link></li>
+              : <li><link to="/dashboard/userHome">Dashboard</link></li>
+      } */}
